@@ -1,12 +1,29 @@
-import { Button } from './components/ui/button'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
+import RootPage from './components/pages/RootPage'
+import ErrorPage from './components/pages/ErrorPage'
+import HomePage from './components/pages/HomePage'
+import PostsPage from './components/pages/PostsPage'
+import LoginPage from './components/pages/LoginPage'
+import SignupPage from './components/pages/SignupPage'
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootPage />,
+    errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <HomePage /> },
+      { path: 'login', element: <LoginPage /> },
+      { path: 'signup', element: <SignupPage /> },
+      { path: 'posts', element: <PostsPage /> },
+      // { path: 'products/:productId', element: <ProductDetailPage /> },
+    ],
+  },
+])
 
 function App() {
-  return (
-    <>
-      <h1 className='bg-red-100 text-center'>React Application</h1>
-      <Button>Click me</Button>
-    </>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App
