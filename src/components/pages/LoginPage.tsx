@@ -9,48 +9,39 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
+import InputField from '../InputField'
 
 const LoginPage = () => {
   return (
-    <section className='flex justify-center p-5'>
-      <Card className='max-w-2xl w-full sm:w-[60%]'>
+    <section className='flex justify-center p-5 mt-10'>
+      <Card className='max-w-sm w-full sm:max-w-sm px-2.5'>
         <CardHeader className='text-center'>
           <CardTitle>Welcome Back</CardTitle>
           <CardDescription>
-            Welcome to PostApp! Sign In to continue
+            Welcome to pinPost! Sign In to continue
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form>
             <div className='grid w-full items-center gap-4'>
-              <div className='flex flex-col space-y-1.5'>
-                <Label htmlFor='email'>Email</Label>
-                <input
-                  type='email'
-                  id='email'
-                  placeholder='example@email.com'
-                />
-              </div>
-              <div className='flex flex-col space-y-1.5'>
-                <Label htmlFor='password'>Password</Label>
-                <input
-                  type='password'
-                  id='password'
-                  placeholder='Your password'
-                />
-              </div>
+              <InputField
+                label='Email'
+                type='email'
+                placeholder='example@gmail.com'
+              />
+              <InputField
+                label='Password'
+                type='password'
+                placeholder='Your Password'
+              />
             </div>
           </form>
         </CardContent>
         <CardFooter className='flex flex-col justify-between'>
           <Button className='block w-full'>Sign In</Button>
-          <p>
+          <p className='text-sm mt-2'>
             Don't have an accound?{' '}
-            <Link
-              className='text-blue-700'
-              to='/signup'
-            >
+            <Link className='text-blue-700' to='/signup'>
               Sign Up
             </Link>
           </p>
