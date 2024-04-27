@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/card'
 import InputField from '../InputField'
 import useInput from '@/hooks/useInput'
-import { ToastTypes, cn, isEmail, isNotEmpty, todoToast } from '@/lib/utils'
+import { isEmail, isNotEmpty } from '@/lib/utils'
 
 const LoginPage = () => {
   const {
