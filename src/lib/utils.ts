@@ -6,6 +6,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export const isNotEmpty = (value: string) => value.trim() !== ''
+export const isEmail = (value: string) =>
+  value.includes('@') && value.includes('.com')
+
 export enum ToastTypes {
   SUCCESS,
   INFO,

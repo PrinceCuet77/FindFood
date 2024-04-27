@@ -1,15 +1,12 @@
-import { Label } from '@radix-ui/react-label'
+import { Label } from './ui/label'
 import { avatars } from '../lib/data'
-import { useState } from 'react'
 
-const Avatars = () => {
-  const [isSelected, setIsSelected] = useState<string | null>(null)
+type AvatarProps = {
+  isSelected: string | null
+  onSelect: (isSelected: string | null) => void
+}
 
-  const onSelectAvatar = (id: string) => {
-    // console.log(id)
-    setIsSelected(id)
-  }
-
+const Avatars = ({ isSelected, onSelect }: AvatarProps) => {
   return (
     <div className='mt-2'>
       <Label className='font-[500] text-sm'>Choose Your Avatar</Label>
@@ -18,11 +15,12 @@ const Avatars = () => {
           <ul key={avatar.id}>
             <li
               className='cursor-pointer'
-              onClick={() => onSelectAvatar(avatar.id)}
+              onClick={() => onSelect(avatar.id)}
             >
               <img
                 className={`w-12 h-12 ${
-                  isSelected === avatar.id && 'ring-2 ring-blue-700 rounded-full'
+                  isSelected === avatar.id &&
+                  'ring-2 ring-blue-700 rounded-full'
                 }`}
                 {...avatar.image}
               />

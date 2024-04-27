@@ -12,10 +12,7 @@ import {
 } from '@/components/ui/card'
 import InputField from '../InputField'
 import useInput from '@/hooks/useInput'
-import { ToastTypes, todoToast } from '@/lib/utils'
-
-const isNotEmpty = (value: string) => value.trim() !== ''
-const isEmail = (value: string) => value.includes('@') && value.includes('.com')
+import { ToastTypes, cn, isEmail, isNotEmpty, todoToast } from '@/lib/utils'
 
 const LoginPage = () => {
   const {
@@ -45,7 +42,6 @@ const LoginPage = () => {
 
   const clickHandler = () => {
     if (!formIsValid) {
-      todoToast('Email & password is required.', ToastTypes.WARNING)
       return
     }
 
@@ -98,7 +94,9 @@ const LoginPage = () => {
         <CardFooter className='flex flex-col justify-between'>
           <Button
             onClick={clickHandler}
-            className='block w-full'
+            type='button'
+            className={'block w-full cursor-pointer'}
+            disabled={!formIsValid}
           >
             Sign In
           </Button>

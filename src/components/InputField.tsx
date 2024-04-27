@@ -2,7 +2,7 @@ import { type FormEvent } from 'react'
 
 import { Input } from './ui/input'
 import { Label } from './ui/label'
-import InputPasswordField from './InputPasswordField'
+import InputPasswordField from './Password/InputPasswordField'
 
 export type InputFieldType = {
   label: string
@@ -11,6 +11,7 @@ export type InputFieldType = {
   value: string
   invalid: boolean
   className: string
+  mode?: boolean
   onChange: (event: FormEvent<HTMLInputElement>) => void
   onBlur: () => void
 }
@@ -41,7 +42,11 @@ const InputField = ({ label, type, invalid, ...restProps }: InputFieldType) => {
         {...restProps}
       />
       {invalid && (
-        <p className='text-red-400 text-sm'>Please entered a valid email.</p>
+        <p className='text-red-400 text-sm'>
+          {type === 'Email'
+            ? 'Please entered a valid email.'
+            : 'Please entered an user id'}
+        </p>
       )}
     </div>
   )

@@ -1,30 +1,21 @@
-// import { Link } from 'react-router-dom'
+import { useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 
-// import { Button } from '@/components/ui/button'
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardFooter,
-//   CardHeader,
-//   CardTitle,
-// } from '@/components/ui/card'
-// import InputField from '../InputField'
-// import Avatars from '../Avatars'
-import { ChangeEvent, FormEvent, useState } from 'react'
-import { Input } from '../ui/input'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import InputField from '../InputField'
+import Avatars from '../Avatars'
 import { Button } from '../ui/button'
 import useInput from '@/hooks/useInput'
-
-const isEmail = (value: string) => value.includes('@')
-const isNotEmpty = (value: string) => value.trim() !== ''
+import { isEmail, isNotEmpty } from '@/lib/utils'
 
 const SignupPage = () => {
-  // const [emailInput, setEmailInput] = useState('')
-  // const [emailInputError, setEmailInputError] = useState(true)
-  // const [passwordInput, setPasswordInput] = useState('')
-  // const [userIdInput, setUserIdInput] = useState('')
-
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
@@ -35,27 +26,57 @@ const SignupPage = () => {
     reset: resetEmailInput,
   } = useInput(isEmail)
 
+  const {
+    value: enteredPassword,
+    isValid: enteredPasswordIsValid,
+    hasError: passwordInputIsInvalid,
+    inputClasses: passwordInputClasses,
+    inputChangeHandler: passwordInputChangeHandler,
+    inputBlurHandler: passwordInputBlurHandler,
+    reset: resetPasswordInput,
+  } = useInput(isNotEmpty)
+
+  const {
+    value: enteredUserId,
+    isValid: enteredUserIdIsValid,
+    hasError: userIdInputIsInvalid,
+    inputClasses: userIdInputClasses,
+    inputChangeHandler: userIdInputChangeHandler,
+    inputBlurHandler: userIdInputBlurHandler,
+    reset: resetUserIdInput,
+  } = useInput(isNotEmpty)
+
+  const [isSelected, setIsSelected] = useState<string | null>(null)
+
   let formIsValid = false
-  if (enteredEmailIsValid) {
+  if (
+    enteredEmailIsValid &&
+    enteredPasswordIsValid &&
+    enteredUserIdIsValid &&
+    isSelected
+  ) {
     formIsValid = true
   }
 
-  const submitHandler = () => {
-    
+  const clickHandler = () => {
     if (!formIsValid) {
       return
     }
-    
-    // console.log(enteredName)
-    console.log(enteredEmail)
 
-    // resetNameInput()
+    console.log(enteredEmail)
+    console.log(enteredPassword)
+    console.log(enteredUserId)
+    console.log(isSelected)
+
+    resetPasswordInput()
     resetEmailInput()
+    resetUserIdInput()
+    setIsSelected(null)
   }
 
   return (
-    <section className='flex justify-center p-5 mt-10 flex-col'>
-      {/* <Card className='max-w-sm w-full sm:max-w-sm px-2.5'>
+    <section className='flex justify-center p-5 mt-10'>
+      <Card className='max-w-sm w-full sm:max-w-sm px-2.5'>
         <CardHeader className='text-center'>
           <CardTitle>Let's Get Started</CardTitle>
           <CardDescription>
@@ -69,29 +90,55 @@ const SignupPage = () => {
                 label='Email'
                 type='email'
                 placeholder='example@gmail.com'
-                value={emailInput}
-                setValue={setEmailInput}
+                value={enteredEmail}
+                onChange={(event: FormEvent<HTMLInputElement>) =>
+                  emailInputChangeHandler(event.currentTarget.value)
+                }
+                onBlur={emailInputBlurHandler}
+                invalid={emailInputIsInvalid}
+                className={emailInputClasses}
               />
               <InputField
                 label='Password'
                 type='password'
                 placeholder='Your Password'
-                value={passwordInput}
-                setValue={setPasswordInput}
+                value={enteredPassword}
+                onChange={(event: FormEvent<HTMLInputElement>) =>
+                  passwordInputChangeHandler(event.currentTarget.value)
+                }
+                mode={true}
+                onBlur={passwordInputBlurHandler}
+                invalid={passwordInputIsInvalid}
+                className={passwordInputClasses}
               />
               <InputField
                 label='UserId'
-                type='userid'
-                placeholder='Your UserId'
-                value={userIdInput}
-                setValue={setUserIdInput}
+                type='text'
+                placeholder='Your User ID'
+                value={enteredUserId}
+                onChange={(event: FormEvent<HTMLInputElement>) =>
+                  userIdInputChangeHandler(event.currentTarget.value)
+                }
+                onBlur={userIdInputBlurHandler}
+                invalid={userIdInputIsInvalid}
+                className={userIdInputClasses}
               />
             </div>
-            <Avatars />
+            <Avatars
+              isSelected={isSelected}
+              onSelect={setIsSelected}
+            />
           </form>
         </CardContent>
         <CardFooter className='flex flex-col justify-between'>
-          <Button type='submit' onClick={submitHandler} className='block w-full'>Sign Up</Button>
+          <Button
+            onClick={clickHandler}
+            type='button'
+            className={'block w-full cursor-pointer'}
+            disabled={!formIsValid}
+          >
+            Sign Up
+          </Button>
           <p className='text-sm mt-2'>
             Already have an accound?{' '}
             <Link
@@ -102,19 +149,7 @@ const SignupPage = () => {
             </Link>
           </p>
         </CardFooter>
-      </Card> */}
-      <p>Email</p>
-      <Input
-        type='email'
-        onChange={(event) => emailInputChangeHandler(event.target.value)}
-        onBlur={emailInputBlurHandler}
-        value={enteredEmail}
-        placeholder='example@gmail.com'
-      />
-      {emailInputIsInvalid && (
-        <p className='text-red-600'>Please entered a valid email.</p>
-      )}
-      <Button onClick={submitHandler}>Submit</Button>
+      </Card>
     </section>
   )
 }
