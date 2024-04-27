@@ -5,7 +5,13 @@ import { InputFieldType } from './InputField'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
 
-const InputPasswordField = ({ label, type, placeholder }: InputFieldType) => {
+const InputPasswordField = ({
+  label,
+  type,
+  invalid,
+  className,
+  ...restProps
+}: InputFieldType) => {
   const [eyeStatus, setEyeStatus] = useState(true)
 
   const visibilityHandler = () => {
@@ -18,8 +24,7 @@ const InputPasswordField = ({ label, type, placeholder }: InputFieldType) => {
       <Input
         type={eyeStatus ? type : 'text'}
         id={type}
-        placeholder={placeholder}
-        className='pr-12'
+        {...restProps}
       />
       {eyeStatus ? (
         <EyeOff

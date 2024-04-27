@@ -15,9 +15,13 @@ const MainNavigation = () => {
   }
 
   return (
-    <nav className='px-2.5 py-4 flex justify-between items-center border-b border-blue-300 sticky h-16'>
+    <nav className='px-2.5 py-4 flex justify-between items-center border-b border-blue-300 sticky h-16 shadow-md'>
       <Link to='/'>
-        <img src={pinPost} alt="A pinPost logo" className='w-32 h-12' />
+        <img
+          src={pinPost}
+          alt='A pinPost logo'
+          className='w-32 h-12'
+        />
       </Link>
       <Button
         asChild

@@ -6,7 +6,7 @@ const Avatars = () => {
   const [isSelected, setIsSelected] = useState<string | null>(null)
 
   const onSelectAvatar = (id: string) => {
-    console.log(id)
+    // console.log(id)
     setIsSelected(id)
   }
 
