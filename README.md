@@ -1,3 +1,3 @@
 # MERN Application (FindFood)
 
-[Preview](https://react-js-post-app.netlify.app/)
+[Preview](https://find-food-mern-app.netlify.app/)
