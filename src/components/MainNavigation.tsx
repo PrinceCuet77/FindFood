@@ -14,7 +14,7 @@ const MainNavigation = () => {
   }
 
   return (
-    <nav className='px-2.5 py-4 flex justify-between items-center border-b border-blue-300 sticky h-16 shadow-md'>
+    <nav className='px-2.5 py-4 flex justify-between items-center border-b border-orange-300 sticky h-16 shadow-md'>
       <Link to='/'>
         FindFood
       </Link>
