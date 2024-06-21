@@ -58,7 +58,7 @@ const LoginPage = () => {
         <CardHeader className='text-center'>
           <CardTitle>Welcome Back</CardTitle>
           <CardDescription>
-            Welcome to pinPost! Sign In to continue
+            Welcome to FindFood! Sign In to continue
           </CardDescription>
         </CardHeader>
         <CardContent>

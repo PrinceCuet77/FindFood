@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import InputField from '../InputField'
-import Avatars from '../Avatars'
+// import Avatars from '../Avatars'
 import { Button } from '../ui/button'
 import useInput from '@/hooks/useInput'
 import { isEmail, isNotEmpty } from '@/lib/utils'
@@ -80,7 +80,7 @@ const SignupPage = () => {
         <CardHeader className='text-center'>
           <CardTitle>Let's Get Started</CardTitle>
           <CardDescription>
-            Create an account and post what is in your mind
+            Create an account and order your food
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -124,10 +124,10 @@ const SignupPage = () => {
                 className={userIdInputClasses}
               />
             </div>
-            <Avatars
+            {/* <Avatars
               isSelected={isSelected}
               onSelect={setIsSelected}
-            />
+            /> */}
           </form>
         </CardContent>
         <CardFooter className='flex flex-col justify-between'>

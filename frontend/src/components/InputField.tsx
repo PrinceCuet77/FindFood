@@ -43,7 +43,7 @@ const InputField = ({ label, type, invalid, ...restProps }: InputFieldType) => {
       />
       {invalid && (
         <p className='text-red-400 text-sm'>
-          {type === 'Email'
+          {label === 'Email'
             ? 'Please entered a valid email.'
             : 'Please entered an user id'}
         </p>

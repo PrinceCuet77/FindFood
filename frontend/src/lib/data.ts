@@ -5,6 +5,8 @@ import WomanWithRedHair from '../assets/avatars/beautiful-woman-red-hair.jpg'
 import BlackManWithBeard from '../assets/avatars/black-man-with-beard.jpg'
 import OldMan from '../assets/avatars/old-man-with-beard-wearing-glasses.jpg'
 
+import { Angry, Frown, Heart, Laugh, ThumbsUp } from 'lucide-react'
+
 export const avatars = [
   {
     id: 'a1',
@@ -47,5 +49,33 @@ export const avatars = [
       src: OldMan,
       alt: 'An Old Man With Beard Wearing Glasses',
     },
+  },
+]
+
+export const reacts = [
+  {
+    id: 'r1',
+    Icon: ThumbsUp,
+    reactions: 3,
+  },
+  {
+    id: 'r2',
+    Icon: Heart,
+    reactions: 30,
+  },
+  {
+    id: 'r3',
+    Icon: Laugh,
+    reactions: 8,
+  },
+  {
+    id: 'r4',
+    Icon: Frown,
+    reactions: 121,
+  },
+  {
+    id: 'r5',
+    Icon: Angry,
+    reactions: 30,
   },
 ]
