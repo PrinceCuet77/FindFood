@@ -1,14 +1,14 @@
-import { type ClassValue, clsx } from 'clsx'
-import { twMerge } from 'tailwind-merge'
-import { type ToastPosition, toast } from 'react-toastify'
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+import { type ToastPosition, toast } from 'react-toastify';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
-export const isNotEmpty = (value: string) => value.trim() !== ''
+export const isNotEmpty = (value: string) => value.trim() !== '';
 export const isEmail = (value: string) =>
-  value.includes('@') && value.includes('.com')
+  value.includes('@') && value.includes('.com');
 
 export enum ToastTypes {
   SUCCESS,
@@ -23,17 +23,17 @@ type ToastType =
   | ToastTypes.INFO
   | ToastTypes.WARNING
   | ToastTypes.ERROR
-  | ToastTypes.DEFAULT
+  | ToastTypes.DEFAULT;
 
 type ToastObjType = {
-  position: ToastPosition | undefined
-  autoClose: number
-  hideProgressBar: boolean
-  closeOnClick: boolean
-  pauseOnHover: boolean
-  draggable: boolean
-  theme: string
-}
+  position: ToastPosition | undefined;
+  autoClose: number;
+  hideProgressBar: boolean;
+  closeOnClick: boolean;
+  pauseOnHover: boolean;
+  draggable: boolean;
+  theme: string;
+};
 
 export function todoToast(
   toastMessage: string,
@@ -47,17 +47,17 @@ export function todoToast(
     pauseOnHover: false,
     draggable: false,
     theme: 'colored',
-  }
+  };
 
   if (type === ToastTypes.SUCCESS) {
-    toast.success(toastMessage, toastObj)
+    toast.success(toastMessage, toastObj);
   } else if (type === ToastTypes.INFO) {
-    toast.info(toastMessage, toastObj)
+    toast.info(toastMessage, toastObj);
   } else if (type === ToastTypes.WARNING) {
-    toast.warning(toastMessage, toastObj)
+    toast.warning(toastMessage, toastObj);
   } else if (type === ToastTypes.ERROR) {
-    toast.error(toastMessage, toastObj)
+    toast.error(toastMessage, toastObj);
   } else {
-    toast(toastMessage, toastObj)
+    toast(toastMessage, toastObj);
   }
 }

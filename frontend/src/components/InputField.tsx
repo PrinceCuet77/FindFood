@@ -1,20 +1,20 @@
-import { type FormEvent } from 'react'
+import { type FormEvent } from 'react';
 
-import { Input } from './ui/input'
-import { Label } from './ui/label'
-import InputPasswordField from './Password/InputPasswordField'
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import InputPasswordField from './Password/InputPasswordField';
 
 export type InputFieldType = {
-  label: string
-  type: string
-  placeholder: string
-  value: string
-  invalid: boolean
-  className: string
-  mode?: boolean
-  onChange: (event: FormEvent<HTMLInputElement>) => void
-  onBlur: () => void
-}
+  label: string;
+  type: string;
+  placeholder: string;
+  value: string;
+  invalid: boolean;
+  className: string;
+  mode?: boolean;
+  onChange: (event: FormEvent<HTMLInputElement>) => void;
+  onBlur: () => void;
+};
 
 const InputField = ({ label, type, invalid, ...restProps }: InputFieldType) => {
   if (type === 'password') {
@@ -25,7 +25,7 @@ const InputField = ({ label, type, invalid, ...restProps }: InputFieldType) => {
         invalid={invalid}
         {...restProps}
       />
-    )
+    );
   }
 
   return (
@@ -49,7 +49,7 @@ const InputField = ({ label, type, invalid, ...restProps }: InputFieldType) => {
         </p>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default InputField
+export default InputField;

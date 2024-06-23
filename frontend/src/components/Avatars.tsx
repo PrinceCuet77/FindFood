@@ -1,10 +1,10 @@
-import { Label } from './ui/label'
-import { avatars } from '../lib/data'
+import { Label } from './ui/label';
+import { avatars } from '../lib/data';
 
 type AvatarProps = {
-  isSelected: string | null
-  onSelect: (isSelected: string | null) => void
-}
+  isSelected: string | null;
+  onSelect: (isSelected: string | null) => void;
+};
 
 const Avatars = ({ isSelected, onSelect }: AvatarProps) => {
   return (
@@ -29,7 +29,7 @@ const Avatars = ({ isSelected, onSelect }: AvatarProps) => {
         ))}
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default Avatars
+export default Avatars;

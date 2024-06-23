@@ -1,7 +1,7 @@
-import { type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -9,10 +9,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import InputField from '../InputField'
-import useInput from '@/hooks/useInput'
-import { isEmail, isNotEmpty } from '@/lib/utils'
+} from '@/components/ui/card';
+import InputField from '../InputField';
+import useInput from '@/hooks/useInput';
+import { isEmail, isNotEmpty } from '@/lib/utils';
 
 const LoginPage = () => {
   const {
@@ -23,7 +23,7 @@ const LoginPage = () => {
     inputChangeHandler: emailInputChangeHandler,
     inputBlurHandler: emailInputBlurHandler,
     reset: resetEmailInput,
-  } = useInput(isEmail)
+  } = useInput(isEmail);
 
   const {
     value: enteredPassword,
@@ -33,24 +33,24 @@ const LoginPage = () => {
     inputChangeHandler: passwordInputChangeHandler,
     inputBlurHandler: passwordInputBlurHandler,
     reset: resetPasswordInput,
-  } = useInput(isNotEmpty)
+  } = useInput(isNotEmpty);
 
-  let formIsValid = false
+  let formIsValid = false;
   if (enteredEmailIsValid && enteredPasswordIsValid) {
-    formIsValid = true
+    formIsValid = true;
   }
 
   const clickHandler = () => {
     if (!formIsValid) {
-      return
+      return;
     }
 
-    console.log(enteredEmail)
-    console.log(enteredPassword)
+    console.log(enteredEmail);
+    console.log(enteredPassword);
 
-    resetPasswordInput()
-    resetEmailInput()
-  }
+    resetPasswordInput();
+    resetEmailInput();
+  };
 
   return (
     <section className='flex justify-center p-5 mt-10'>
@@ -112,7 +112,7 @@ const LoginPage = () => {
         </CardFooter>
       </Card>
     </section>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

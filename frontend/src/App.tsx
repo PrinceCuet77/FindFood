@@ -1,10 +1,10 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import RootPage from './components/pages/RootPage'
-import ErrorPage from './components/pages/ErrorPage'
-import HomePage from './components/pages/HomePage'
-import LoginPage from './components/pages/LoginPage'
-import SignupPage from './components/pages/SignupPage'
+import RootPage from './components/pages/RootPage';
+import ErrorPage from './components/pages/ErrorPage';
+import HomePage from './components/pages/HomePage';
+import LoginPage from './components/pages/LoginPage';
+import SignupPage from './components/pages/SignupPage';
 
 const router = createBrowserRouter([
   {
@@ -17,10 +17,10 @@ const router = createBrowserRouter([
       { path: 'signup', element: <SignupPage /> },
     ],
   },
-])
+]);
 
 function App() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

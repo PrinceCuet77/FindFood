@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { Eye, EyeOff } from 'lucide-react'
+import { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 
-import { InputFieldType } from '../InputField'
-import { Input } from '../ui/input'
-import { Label } from '../ui/label'
-import PasswordValidation from './PasswordValidation'
+import { InputFieldType } from '../InputField';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import PasswordValidation from './PasswordValidation';
 
 const InputPasswordField = ({
   label,
@@ -15,13 +15,13 @@ const InputPasswordField = ({
   value,
   ...restProps
 }: InputFieldType) => {
-  const [eyeStatus, setEyeStatus] = useState(true)
+  const [eyeStatus, setEyeStatus] = useState(true);
 
-  const isVisible = value.length > 0
+  const isVisible = value.length > 0;
 
   const visibilityHandler = () => {
-    setEyeStatus((prev) => !prev)
-  }
+    setEyeStatus((prev) => !prev);
+  };
 
   return (
     <div className='grid w-full max-w-sm items-center gap-1.5 relative'>
@@ -54,7 +54,7 @@ const InputPasswordField = ({
         )
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default InputPasswordField
+export default InputPasswordField;

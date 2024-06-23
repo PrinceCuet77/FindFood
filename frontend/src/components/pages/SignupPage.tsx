@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   Card,
@@ -8,12 +8,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import InputField from '../InputField'
+} from '@/components/ui/card';
+import InputField from '../InputField';
 // import Avatars from '../Avatars'
-import { Button } from '../ui/button'
-import useInput from '@/hooks/useInput'
-import { isEmail, isNotEmpty } from '@/lib/utils'
+import { Button } from '../ui/button';
+import useInput from '@/hooks/useInput';
+import { isEmail, isNotEmpty } from '@/lib/utils';
 
 const SignupPage = () => {
   const {
@@ -24,7 +24,7 @@ const SignupPage = () => {
     inputChangeHandler: emailInputChangeHandler,
     inputBlurHandler: emailInputBlurHandler,
     reset: resetEmailInput,
-  } = useInput(isEmail)
+  } = useInput(isEmail);
 
   const {
     value: enteredPassword,
@@ -34,45 +34,45 @@ const SignupPage = () => {
     inputChangeHandler: passwordInputChangeHandler,
     inputBlurHandler: passwordInputBlurHandler,
     reset: resetPasswordInput,
-  } = useInput(isNotEmpty)
+  } = useInput(isNotEmpty);
 
-  const {
-    value: enteredUserId,
-    isValid: enteredUserIdIsValid,
-    hasError: userIdInputIsInvalid,
-    inputClasses: userIdInputClasses,
-    inputChangeHandler: userIdInputChangeHandler,
-    inputBlurHandler: userIdInputBlurHandler,
-    reset: resetUserIdInput,
-  } = useInput(isNotEmpty)
+  // const {
+  //   value: enteredUserId,
+  //   isValid: enteredUserIdIsValid,
+  //   hasError: userIdInputIsInvalid,
+  //   inputClasses: userIdInputClasses,
+  //   inputChangeHandler: userIdInputChangeHandler,
+  //   inputBlurHandler: userIdInputBlurHandler,
+  //   reset: resetUserIdInput,
+  // } = useInput(isNotEmpty)
 
-  const [isSelected, setIsSelected] = useState<string | null>(null)
+  const [isSelected, setIsSelected] = useState<string | null>(null);
 
-  let formIsValid = false
+  let formIsValid = false;
   if (
     enteredEmailIsValid &&
     enteredPasswordIsValid &&
-    enteredUserIdIsValid &&
+    // enteredUserIdIsValid &&
     isSelected
   ) {
-    formIsValid = true
+    formIsValid = true;
   }
 
   const clickHandler = () => {
     if (!formIsValid) {
-      return
+      return;
     }
 
-    console.log(enteredEmail)
-    console.log(enteredPassword)
-    console.log(enteredUserId)
-    console.log(isSelected)
+    console.log(enteredEmail);
+    console.log(enteredPassword);
+    // console.log(enteredUserId)
+    console.log(isSelected);
 
-    resetPasswordInput()
-    resetEmailInput()
-    resetUserIdInput()
-    setIsSelected(null)
-  }
+    resetPasswordInput();
+    resetEmailInput();
+    // resetUserIdInput()
+    setIsSelected(null);
+  };
 
   return (
     <section className='flex justify-center p-5 mt-10'>
@@ -111,7 +111,7 @@ const SignupPage = () => {
                 invalid={passwordInputIsInvalid}
                 className={passwordInputClasses}
               />
-              <InputField
+              {/* <InputField
                 label='UserId'
                 type='text'
                 placeholder='Your User ID'
@@ -122,7 +122,7 @@ const SignupPage = () => {
                 onBlur={userIdInputBlurHandler}
                 invalid={userIdInputIsInvalid}
                 className={userIdInputClasses}
-              />
+              /> */}
             </div>
             {/* <Avatars
               isSelected={isSelected}
@@ -151,7 +151,7 @@ const SignupPage = () => {
         </CardFooter>
       </Card>
     </section>
-  )
-}
+  );
+};
 
-export default SignupPage
+export default SignupPage;

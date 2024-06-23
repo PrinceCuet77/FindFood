@@ -1,4 +1,4 @@
-import { Menu } from 'lucide-react'
+import { Menu } from 'lucide-react';
 
 import {
   Sheet,
@@ -7,16 +7,18 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet'
+} from '@/components/ui/sheet';
 
 type SidebarProps = {
-  toggleMenu: boolean
-}
+  toggleMenu: boolean;
+};
 
 const Sidebar = ({ toggleMenu }: SidebarProps) => {
   return (
     <Sheet>
-      <SheetTrigger className='block md:hidden'>{toggleMenu && <Menu />}</SheetTrigger>
+      <SheetTrigger className='block md:hidden'>
+        {toggleMenu && <Menu />}
+      </SheetTrigger>
       <SheetContent side='right'>
         <SheetHeader>
           <SheetTitle>Are you absolutely sure?</SheetTitle>
@@ -27,7 +29,7 @@ const Sidebar = ({ toggleMenu }: SidebarProps) => {
         </SheetHeader>
       </SheetContent>
     </Sheet>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

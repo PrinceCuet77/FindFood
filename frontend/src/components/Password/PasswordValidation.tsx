@@ -1,17 +1,17 @@
-import { type FormEvent } from 'react'
+import { type FormEvent } from 'react';
 
-import { Input } from '../ui/input'
-import { CircleChevronRight } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { Input } from '../ui/input';
+import { CircleChevronRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 type PasswordValidationProps = {
-  type: string
-  placeholder: string
-  value: string
-  isVisible: boolean
-  onChange: (event: FormEvent<HTMLInputElement>) => void
-  onBlur: () => void
-}
+  type: string;
+  placeholder: string;
+  value: string;
+  isVisible: boolean;
+  onChange: (event: FormEvent<HTMLInputElement>) => void;
+  onBlur: () => void;
+};
 
 const PasswordValidation = ({
   type,
@@ -20,12 +20,12 @@ const PasswordValidation = ({
   ...restProps
 }: PasswordValidationProps) => {
   // Regular expressions to check for uppercase, lowercase, and numbers
-  const hasUpperCase: boolean = /[A-Z]/.test(value)
-  const hasLowerCase: boolean = /[a-z]/.test(value)
-  const hasNumber: boolean = /\d/.test(value)
-  const hasValidLength: boolean = value.length >= 8
+  const hasUpperCase: boolean = /[A-Z]/.test(value);
+  const hasLowerCase: boolean = /[a-z]/.test(value);
+  const hasNumber: boolean = /\d/.test(value);
+  const hasValidLength: boolean = value.length >= 8;
 
-  const reqCSS = 'flex text-sm justify-start gap-2 items-center text-red-500'
+  const reqCSS = 'flex text-sm justify-start gap-2 items-center text-red-500';
 
   return (
     <>
@@ -56,7 +56,7 @@ const PasswordValidation = ({
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default PasswordValidation
+export default PasswordValidation;

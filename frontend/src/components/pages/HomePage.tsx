@@ -6,7 +6,7 @@ const HomePage = () => {
         <p>Search & order your desired food & enjoy your food</p>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

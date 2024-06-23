@@ -1,11 +1,11 @@
-import ManWithBeard from '../assets/avatars/man-with-beard.jpg'
-import LatinWoman from '../assets/avatars/beautiful-latin-woman.jpg'
-import SimpleMan from '../assets/avatars/simple-man.jpg'
-import WomanWithRedHair from '../assets/avatars/beautiful-woman-red-hair.jpg'
-import BlackManWithBeard from '../assets/avatars/black-man-with-beard.jpg'
-import OldMan from '../assets/avatars/old-man-with-beard-wearing-glasses.jpg'
+import ManWithBeard from '../assets/avatars/man-with-beard.jpg';
+import LatinWoman from '../assets/avatars/beautiful-latin-woman.jpg';
+import SimpleMan from '../assets/avatars/simple-man.jpg';
+import WomanWithRedHair from '../assets/avatars/beautiful-woman-red-hair.jpg';
+import BlackManWithBeard from '../assets/avatars/black-man-with-beard.jpg';
+import OldMan from '../assets/avatars/old-man-with-beard-wearing-glasses.jpg';
 
-import { Angry, Frown, Heart, Laugh, ThumbsUp } from 'lucide-react'
+import { Angry, Frown, Heart, Laugh, ThumbsUp } from 'lucide-react';
 
 export const avatars = [
   {
@@ -50,7 +50,7 @@ export const avatars = [
       alt: 'An Old Man With Beard Wearing Glasses',
     },
   },
-]
+];
 
 export const reacts = [
   {
@@ -78,4 +78,4 @@ export const reacts = [
     Icon: Angry,
     reactions: 30,
   },
-]
+];
