@@ -16,7 +16,7 @@ const restaurantSchema = new Schema(
       type: String,
       required: true,
     },
-    price_range: {
+    priceRange: {
       type: String,
       enum: ['affordable', 'mid-range', 'fine dining'],
       required: true,
@@ -30,30 +30,8 @@ const restaurantSchema = new Schema(
         type: String,
         required: true,
       },
-      // state: {
-      //   type: String,
-      //   required: true,
-      // },
-      // postalCode: {
-      //   type: String,
-      //   required: true,
-      // },
-      // country: {
-      //   type: String,
-      //   required: true,
-      // },
     },
-    // location: {
-    //   latitude: {
-    //     type: Number,
-    //     required: true,
-    //   },
-    //   longitude: {
-    //     type: Number,
-    //     required: true,
-    //   },
-    // },
-    dietary_preferences: {
+    dietaryPreferences: {
       type: [String],
       enum: ['vegetarian', 'vegan', 'gluten-free', 'keto', 'halal', 'kosher'],
       required: true,
@@ -67,7 +45,7 @@ const restaurantSchema = new Schema(
       enum: ['casual', 'cozy', 'upscale', 'family-friendly', 'romantic'],
       required: true,
     },
-    special_features: {
+    specialFeatures: {
       type: [String],
       enum: [
         'outdoor seating',
@@ -148,7 +126,7 @@ const restaurantSchema = new Schema(
     ],
     images: [
       {
-        public_id: {
+        publicId: {
           type: String,
           required: true,
         },

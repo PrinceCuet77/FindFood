@@ -1,0 +1,143 @@
+[
+  {
+    "name": "Biriyani",
+    "description": "A traditional Bangladeshi dish made with mixed rice, meat (chicken or mutton), spices, and boiled eggs.",
+    "price": 350,
+    "restaurant": "61e0ab3b391d3f001c80ea1b",
+    "dietaryInfo": ["halal"],
+    "availability": {
+      "days": ["friday", "saturday", "sunday"],
+      "startTime": "11:00",
+      "endTime": "22:00"
+    },
+    "rating": 4.5,
+    "reviews": [
+      {
+        "user": "61e0b3d259d1f70024d4e7b7",
+        "comment": "Amazing biryani! The flavors were perfect.",
+        "rating": 5,
+        "date": "2023-09-15T14:48:00.000Z"
+      },
+      {
+        "user": "61e0b3d259d1f70024d4e7b8",
+        "comment": "Very tasty but a bit too spicy for me.",
+        "rating": 4,
+        "date": "2023-09-17T10:20:00.000Z"
+      }
+    ],
+    "images": [
+      {
+        "publicId": "biriyani1",
+        "url": "https://example.com/images/biriyani1.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Hilsa Fish Curry",
+    "description": "A rich and flavorful curry made with Hilsa fish, mustard seeds, and spices, served with rice.",
+    "price": 550,
+    "restaurant": "61e0ab3b391d3f001c80ea1b",
+    "dietaryInfo": ["halal", "gluten-free"],
+    "availability": {
+      "days": ["monday", "wednesday", "friday"],
+      "startTime": "12:00",
+      "endTime": "21:00"
+    },
+    "rating": 4.7,
+    "reviews": [
+      {
+        "user": "61e0b3d259d1f70024d4e7b9",
+        "comment": "The best Hilsa curry I have ever had!",
+        "rating": 5,
+        "date": "2023-09-20T18:30:00.000Z"
+      }
+    ],
+    "images": [
+      {
+        "publicId": "hilsa1",
+        "url": "https://example.com/images/hilsa1.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Bhuna Khichuri",
+    "description": "A comforting dish made with rice, lentils, and various spices, often served with beef or chicken curry.",
+    "price": 300,
+    "restaurant": "61e0ab3b391d3f001c80ea1c",
+    "dietaryInfo": ["halal", "gluten-free"],
+    "availability": {
+      "days": ["tuesday", "thursday"],
+      "startTime": "10:00",
+      "endTime": "20:00"
+    },
+    "rating": 4.8,
+    "reviews": [
+      {
+        "user": "61e0b3d259d1f70024d4e7ba",
+        "comment": "Perfect comfort food on a rainy day.",
+        "rating": 5,
+        "date": "2023-09-18T12:00:00.000Z"
+      }
+    ],
+    "images": [
+      {
+        "publicId": "khichuri1",
+        "url": "https://example.com/images/khichuri1.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Panta Bhat",
+    "description": "Fermented rice usually served with fried hilsa fish, pickles, lentil cakes, and green chilies, a traditional Bangladeshi dish during the Bengali New Year.",
+    "price": 200,
+    "restaurant": "61e0ab3b391d3f001c80ea1d",
+    "dietaryInfo": ["halal", "vegan"],
+    "availability": {
+      "days": ["sunday", "monday"],
+      "startTime": "07:00",
+      "endTime": "14:00"
+    },
+    "rating": 4.2,
+    "reviews": [
+      {
+        "user": "61e0b3d259d1f70024d4e7bb",
+        "comment": "A taste of tradition, absolutely refreshing!",
+        "rating": 4,
+        "date": "2023-09-16T09:30:00.000Z"
+      }
+    ],
+    "images": [
+      {
+        "publicId": "pantabhat1",
+        "url": "https://example.com/images/pantabhat1.jpg"
+      }
+    ]
+  },
+  {
+    "name": "Mishti Doi",
+    "description": "A traditional Bengali sweet yogurt made from milk and sugar, often flavored with cardamom and served chilled.",
+    "price": 100,
+    "restaurant": "61e0ab3b391d3f001c80ea1e",
+    "dietaryInfo": ["vegetarian", "halal"],
+    "availability": {
+      "days": ["saturday", "sunday"],
+      "startTime": "08:00",
+      "endTime": "21:00"
+    },
+    "rating": 4.9,
+    "reviews": [
+      {
+        "user": "61e0b3d259d1f70024d4e7bc",
+        "comment": "Absolutely delicious, perfect end to a meal!",
+        "rating": 5,
+        "date": "2023-09-19T19:00:00.000Z"
+      }
+    ],
+    "images": [
+      {
+        "publicId": "mishtidoi1",
+        "url": "https://example.com/images/mishtidoi1.jpg"
+      }
+    ]
+  }
+]

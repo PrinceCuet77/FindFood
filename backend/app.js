@@ -33,19 +33,19 @@ app.use((req, res, next) => {
 app.use('/api/v1', menuRoutes);
 // // app.use('/auth', authRoutes);
 
-// // Error middleware
-// // Will execute only an error is thrown or forwarded with 'next(err)' method
-// app.use((error, req, res, next) => {
-//   console.log('An ERROR: ', error);
-//   const status = error.httpStatusCode || 500;
-//   const message = error.message;
-//   const data = error.data;
+// Error middleware
+// Will execute only an error is thrown or forwarded with 'next(err)' method
+app.use((error, req, res, next) => {
+  console.log('An ERROR: ', error);
+  const status = error.httpStatusCode || 500;
+  const message = error.message;
+  const data = error.data;
 
-//   res.status(status || 500).json({
-//     message: message,
-//     data: data,
-//   });
-// });
+  res.status(status || 500).json({
+    message: message,
+    data: data,
+  });
+});
 
 // // mongoose
 // //   .connect(MONGODB_URL)

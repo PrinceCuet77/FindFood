@@ -21,7 +21,7 @@ const MenuSchema = new Schema(
       ref: 'Restaurant',
       required: true,
     },
-    dietary_info: {
+    dietaryInfo: {
       type: [String],
       required: true,
       enum: ['vegetarian', 'vegan', 'gluten-free', 'keto', 'halal', 'kosher'],
@@ -40,11 +40,11 @@ const MenuSchema = new Schema(
         ],
         required: true,
       },
-      start_time: {
+      startTime: {
         type: String,
         required: true,
       },
-      end_time: {
+      endTime: {
         type: String,
         required: true,
       },
@@ -77,7 +77,7 @@ const MenuSchema = new Schema(
     ],
     images: [
       {
-        public_id: {
+        publicId: {
           type: String,
           required: true,
         },
@@ -91,6 +91,6 @@ const MenuSchema = new Schema(
   { timestamps: true }
 );
 
-const FoodItem = mongoose.model('Menu', MenuSchema);
+const Menu = mongoose.model('Menu', MenuSchema);
 
-module.exports = FoodItem;
+module.exports = Menu;

@@ -18,7 +18,7 @@ const userSchema = new Schema(
       required: true,
     },
     avatar: {
-      public_id: {
+      publicId: {
         type: String,
         required: true,
       },
