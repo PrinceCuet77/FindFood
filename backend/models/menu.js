@@ -39,14 +39,17 @@ const MenuSchema = new Schema(
           'sunday',
         ],
         required: true,
+        default: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'],
       },
       startTime: {
         type: String,
         required: true,
+        default: '10:00',
       },
       endTime: {
         type: String,
         required: true,
+        default: '22:00',
       },
     },
     rating: {

@@ -36,7 +36,7 @@ app.use('/api/v1', menuRoutes);
 // Error middleware
 // Will execute only an error is thrown or forwarded with 'next(err)' method
 app.use((error, req, res, next) => {
-  console.log('An ERROR: ', error);
+  // console.log('An ERROR: ', error);
   const status = error.httpStatusCode || 500;
   const message = error.message;
   const data = error.data;

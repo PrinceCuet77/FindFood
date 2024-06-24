@@ -1,7 +1,18 @@
+const { validationResult } = require('express-validator');
+
 const Menu = require('../models/menu');
 
 // POST -> Create a new menu -> /api/v1/menu/new
 exports.createMenu = async (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const error = new Error('Validation failed, entered data is incorrect.');
+    error.statusCode = 422;
+    error.data = errors.array(); // Add the errors array to the error data
+    return next(error); // Pass the error to the error-handling middleware
+  }
+
   const name = req.body.name;
   const description = req.body.description;
   const price = req.body.price;
