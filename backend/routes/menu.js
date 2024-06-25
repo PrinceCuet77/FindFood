@@ -132,7 +132,30 @@ const validateMenu = [
 // GET /api/v1/menus
 router.get('/menus', menuController.getAllMenus);
 
-// POST /api/v1/menu/new
-router.post('/menu/new', validateMenu, menuController.createMenu);
+// --- CRUD - Single Menu Item ---
+// POST /api/v1/menu
+router.post('/menu', validateMenu, menuController.createMenu);
+
+// GET /api/v1/menu/:menuId
+router.get('/menu', menuController.getSingleMenu);
+
+// PUT /api/v1/menu/:menuId
+router.put('/menu/:menuId', menuController.updateSingleMenu);
+
+// DELETE /api/v1/menu/:menuId
+router.delete('/menu/:menuId', menuController.deleteSingleMenu);
+
+// --- CRUD - Single Menu Item For ADMIN ---
+// POST /api/v1/menu
+router.post('/admin/menu', validateMenu, menuController.createAdminMenu);
+
+// GET /api/v1/menu/:menuId
+router.get('/admin/menu', menuController.getAdminSingleMenu);
+
+// PUT /api/v1/menu/:menuId
+router.put('/admin/menu/:menuId', menuController.updateAdminSingleMenu);
+
+// DELETE /api/v1/menu/:menuId
+router.delete('/admin/menu/:menuId', menuController.deleteAdminSingleMenu);
 
 module.exports = router;
