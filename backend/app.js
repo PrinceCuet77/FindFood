@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 // const mongoose = require('mongoose');
 // // const multer = require('multer');
 
-dotenv.config({ path: 'env.local' });
+dotenv.config({ path: '.env.local' });
 
 const connectDatabase = require('./utils/database');
 

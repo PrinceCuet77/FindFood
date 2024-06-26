@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const { DIETARY_INFO, AVAILABILITY, AVAILABILITY_DEFAULT } = require('../utils/constants');
+
 const { Schema } = mongoose;
 
 const MenuSchema = new Schema(
@@ -24,22 +26,14 @@ const MenuSchema = new Schema(
     dietaryInfo: {
       type: [String],
       required: true,
-      enum: ['vegetarian', 'vegan', 'gluten-free', 'keto', 'halal', 'kosher'],
+      enum: DIETARY_INFO,
     },
     availability: {
       days: {
         type: [String],
-        enum: [
-          'monday',
-          'tuesday',
-          'wednesday',
-          'thursday',
-          'friday',
-          'saturday',
-          'sunday',
-        ],
+        enum: AVAILABILITY,
         required: true,
-        default: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'],
+        default: AVAILABILITY_DEFAULT,
       },
       startTime: {
         type: String,
@@ -55,6 +49,11 @@ const MenuSchema = new Schema(
     rating: {
       type: Number,
       default: 0,
+    },
+    visibility: {
+      type: boolean,
+      required: true,
+      default: true,
     },
     reviews: [
       {

@@ -2,14 +2,18 @@ const { validationResult } = require('express-validator');
 
 const Menu = require('../models/menu');
 
-exports.getAllMenus = (req, res, next) => {
+exports.getAllMenus = async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: 'Menus fetched successfully!',
   });
 };
 
-exports.createMenu = async (req, res, next) => {
+exports.getSingleMenu = async (req, res, next) => {};
+
+exports.getAdminAllMenus = async (req, res, next) => {};
+
+exports.createAdminMenu = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -56,16 +60,6 @@ exports.createMenu = async (req, res, next) => {
     next(err); // Try to reach the next error handling middleware
   }
 };
-
-exports.getSingleMenu = async (req, res, next) => {};
-
-exports.updateSingleMenu = async (req, res, next) => {}
-
-exports.deleteSingleMenu = async (req, res, next) => {};
-
-exports.createAdminMenu = async (req, res, next) => {};
-
-exports.getAdminSingleMenu = async (req, res, next) => {};
 
 exports.updateAdminSingleMenu = async (req, res, next) => {};
 
