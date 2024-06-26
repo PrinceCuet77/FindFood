@@ -1,9 +1,11 @@
 const express = require('express');
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 const mongoose = require('mongoose');
 
-const router = express.Router();
 const menuController = require('../controllers/menuController');
+const { DIETARY_INFO, AVAILABILITY } = require('../utils/constants');
+
+const router = express.Router();
 
 const validateCreateMenu = [
   body('name')
@@ -38,16 +40,8 @@ const validateCreateMenu = [
     .notEmpty()
     .withMessage('Dietary Info is required')
     .custom((values) => {
-      const allowedValues = [
-        'vegetarian',
-        'vegan',
-        'gluten-free',
-        'keto',
-        'halal',
-        'kosher',
-      ];
       values.forEach((value) => {
-        if (!allowedValues.includes(value)) {
+        if (!DIETARY_INFO.includes(value)) {
           throw new Error('Invalid dietary info provided');
         }
       });
@@ -60,17 +54,8 @@ const validateCreateMenu = [
     .notEmpty()
     .withMessage('Days are required')
     .custom((values) => {
-      const allowedValues = [
-        'monday',
-        'tuesday',
-        'wednesday',
-        'thursday',
-        'friday',
-        'saturday',
-        'sunday',
-      ];
       values.forEach((value) => {
-        if (!allowedValues.includes(value)) {
+        if (!AVAILABILITY.includes(value)) {
           throw new Error('Invalid day provided');
         }
       });
@@ -93,7 +78,7 @@ const validateCreateMenu = [
     .optional()
     .isFloat({ min: 0, max: 5 })
     .withMessage('Rating must be between 0 and 5'),
-  
+
   body('visibility')
     .isBoolean()
     .withMessage('Visibility should be a boolean value')
@@ -168,16 +153,8 @@ const validateUpdateSingleMenu = [
     .isArray()
     .withMessage('Dietary Info should be an array')
     .custom((values) => {
-      const allowedValues = [
-        'vegetarian',
-        'vegan',
-        'gluten-free',
-        'keto',
-        'halal',
-        'kosher',
-      ];
       values.forEach((value) => {
-        if (!allowedValues.includes(value)) {
+        if (!DIETARY_INFO.includes(value)) {
           throw new Error('Invalid dietary info provided');
         }
       });
@@ -189,17 +166,8 @@ const validateUpdateSingleMenu = [
     .isArray()
     .withMessage('Days should be an array')
     .custom((values) => {
-      const allowedValues = [
-        'monday',
-        'tuesday',
-        'wednesday',
-        'thursday',
-        'friday',
-        'saturday',
-        'sunday',
-      ];
       values.forEach((value) => {
-        if (!allowedValues.includes(value)) {
+        if (!AVAILABILITY.includes(value)) {
           throw new Error('Invalid day provided');
         }
       });
@@ -220,8 +188,9 @@ const validateUpdateSingleMenu = [
     .optional()
     .isFloat({ min: 0, max: 5 })
     .withMessage('Rating must be between 0 and 5'),
-  
+
   body('visibility')
+    .optional()
     .isBoolean()
     .withMessage('Visibility should be a boolean value')
     .notEmpty()
@@ -269,17 +238,28 @@ router.get('/menus', menuController.getAllMenus);
 // GET /api/v1/menu/:menuId
 router.get('/menu/:menuId', validateMenuId, menuController.getSingleMenu);
 
-// --- CRUD - Single Menu Item For ADMIN ---
+// --- For ADMIN ---
 // GET /api/v1/admin/menus
 router.get('/admin/menus', menuController.getAdminAllMenus);
+
+// GET /api/v1/admin/menu/:menuId
+router.get('/admin/menu/:menuId', menuController.getAdminSingleMenu);
 
 // POST /api/v1/admin/menu
 router.post('/admin/menu', validateCreateMenu, menuController.createAdminMenu);
 
 // PUT /api/v1/admin/menu/:menuId
-router.put('admin/menu/:menuId', validateUpdateSingleMenu, menuController.updateAdminSingleMenu);
+router.put(
+  '/admin/menu/:menuId',
+  validateUpdateSingleMenu,
+  menuController.updateAdminSingleMenu
+);
 
 // DELETE /api/v1/admin/menu/:menuId
-router.delete('admin/menu/:menuId', validateMenuId, menuController.deleteAdminSingleMenu);
+router.delete(
+  '/admin/menu/:menuId',
+  validateMenuId,
+  menuController.deleteAdminSingleMenu
+);
 
 module.exports = router;

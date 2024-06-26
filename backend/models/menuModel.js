@@ -51,7 +51,7 @@ const MenuSchema = new Schema(
       default: 0,
     },
     visibility: {
-      type: boolean,
+      type: Boolean,
       required: true,
       default: true,
     },

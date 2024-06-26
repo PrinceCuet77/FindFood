@@ -1,12 +1,12 @@
 const dotenv = require('dotenv');
 
-const Menu = require('../models/menu');
+const Menu = require('../models/menuModel');
 const connectDatabase = require('./database');
 
 const menus = require('../data/menus');
 
 // Setting dotenv file
-dotenv.config({ path: 'env.local' });
+dotenv.config({ path: '.env.local' });
 
 connectDatabase();
 

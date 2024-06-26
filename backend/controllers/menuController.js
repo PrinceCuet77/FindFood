@@ -1,66 +1,193 @@
-const { validationResult } = require('express-validator');
-
-const Menu = require('../models/menu');
+const Menu = require('../models/menuModel');
+const { detectValidationError } = require('../utils/error');
 
 exports.getAllMenus = async (req, res, next) => {
-  res.status(200).json({
-    success: true,
-    message: 'Menus fetched successfully!',
-  });
-};
-
-exports.getSingleMenu = async (req, res, next) => {};
-
-exports.getAdminAllMenus = async (req, res, next) => {};
-
-exports.createAdminMenu = async (req, res, next) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    const error = new Error('Validation failed, entered data is incorrect.');
-    error.statusCode = 422;
-    error.data = errors.array(); // Add the errors array to the error data
-    return next(error); // Pass the error to the error-handling middleware
-  }
-
-  const name = req.body.name;
-  const description = req.body.description;
-  const price = req.body.price;
-  const restaurant = req.body.restaurant;
-  const dietaryInfo = req.body.dietaryInfo;
-  const availability = req.body.availability;
-  const rating = req.body.rating;
-  const reviews = req.body.reviews;
-  const images = req.body.images;
-
-  const menu = new Menu({
-    name,
-    description,
-    price,
-    restaurant,
-    dietaryInfo,
-    availability,
-    rating,
-    reviews,
-    images,
-  });
-
+  // TODO: Pagination
   try {
-    const result = await menu.save();
-    console.log(result);
+    const menus = await Menu.find({ visibility: true });
 
-    res.status(201).json({
-      message: 'A new menu is created successfully!',
-      menu,
+    res.status(200).json({
+      success: true,
+      message: 'Fetched all menus successfully!',
+      count: menus.length,
+      data: { menus },
     });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
+      err.message = 'Internal Server Error';
     }
-    next(err); // Try to reach the next error handling middleware
+    next(err);
   }
 };
 
-exports.updateAdminSingleMenu = async (req, res, next) => {};
+exports.getSingleMenu = async (req, res, next) => {
+  detectValidationError(req, next);
 
-exports.deleteAdminSingleMenu = async (req, res, next) => {};
+  const menuId = req.params.menuId;
+
+  try {
+    const menu = await Menu.findById(menuId);
+    if (!menu) {
+      const error = new Error('Could not find menu.');
+      error.statusCode = 404;
+      error.data = { menuId };
+      throw error;
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Fetched a menu successfully!',
+      data: { menu },
+    });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+      err.message = 'Internal Server Error';
+      err.data = { menuId };
+    }
+    next(err);
+  }
+};
+
+exports.getAdminAllMenus = async (req, res, next) => {
+  // TODO: Pagination
+  try {
+    const menus = await Menu.find();
+
+    res.status(200).json({
+      success: true,
+      message: 'Fetched menus successfully!',
+      count: menus.length,
+      data: { menus },
+    });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+      err.message = 'Internal Server Error';
+    }
+    next(err);
+  }
+};
+
+exports.getAdminSingleMenu = async (req, res, next) => {
+  detectValidationError(req, next);
+
+  const menuId = req.params.menuId;
+  try {
+    const menu = await Menu.findById(menuId);
+
+    res.status(200).json({
+      success: true,
+      message: 'Fetched a menu successfully!',
+      data: { menu },
+    });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+      err.message = 'Internal Server Error';
+      err.data = { menuId };
+    }
+    next(err);
+  }
+};
+
+exports.createAdminMenu = async (req, res, next) => {
+  detectValidationError(req, next);
+
+  const menu = new Menu({
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
+    restaurant: req.body.restaurant,
+    dietaryInfo: req.body.dietaryInfo,
+    availability: req.body.availability,
+    rating: req.body.rating,
+    visibility: req.body.visibility,
+    reviews: req.body.reviews,
+    images: req.body.images,
+  });
+
+  try {
+    const result = await menu.save();
+
+    res.status(201).json({
+      success: true,
+      message: 'Created a new food menu item successfully!',
+      data: { menu: result },
+    });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+      err.message = 'Internal Server Error';
+    }
+    next(err);
+  }
+};
+
+exports.updateAdminSingleMenu = async (req, res, next) => {
+  detectValidationError(req, next);
+
+  const menuId = req.params.menuId;
+  try {
+    const menu = await Menu.findById(menuId);
+    if (!menu) {
+      const error = new Error('Could not find food menu.');
+      error.statusCode = 404;
+      error.data = { menuId };
+      throw error;
+    }
+
+    menu.name = req.body.name;
+    menu.description = req.body.description;
+    menu.price = req.body.price;
+    menu.restaurant = req.body.restaurant;
+    menu.dietaryInfo = req.body.dietaryInfo;
+    menu.availability = req.body.availability;
+    menu.rating = req.body.rating;
+    menu.reviews = req.body.reviews;
+    menu.images = req.body.images;
+
+    const result = await menu.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Menu is updated!',
+      data: { menu: result },
+    });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+      err.message = 'Internal Server Error';
+    }
+    next(err);
+  }
+};
+
+exports.deleteAdminSingleMenu = async (req, res, next) => {
+  detectValidationError(req, next);
+
+  const menuId = req.params.menuId;
+  try {
+    const menu = await Menu.findById(menuId);
+    if (!menu) {
+      const error = new Error('Could not find food menu.');
+      error.statusCode = 404;
+      error.data = { menuId };
+      throw error;
+    }
+
+    const result = await Menu.findByIdAndDelete(menuId);
+    res.status(200).json({
+      success: true,
+      message: 'A menu is deleted successfully!',
+      data: { menu: result },
+    });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+      err.message = 'Internal Server Error';
+    }
+    next(err);
+  }
+};

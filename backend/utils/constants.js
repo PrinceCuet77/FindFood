@@ -1,8 +1,8 @@
-export const USER_TYPE = ['user', 'admin'];
-export const GENDER_TYPE = ['male', 'female'];
+exports.USER_TYPE = ['user', 'admin'];
+exports.GENDER_TYPE = ['male', 'female'];
 
-export const PRICE_RANGE = ['affordable', 'mid-range', 'fine dining'];
-export const DIETARY_PREFERENCES = [
+exports.PRICE_RANGE = ['affordable', 'mid-range', 'fine dining'];
+exports.DIETARY_PREFERENCES = [
   'vegetarian',
   'vegan',
   'gluten-free',
@@ -10,21 +10,15 @@ export const DIETARY_PREFERENCES = [
   'halal',
   'kosher',
 ];
-export const AMBIANCE = [
-  'casual',
-  'cozy',
-  'upscale',
-  'family-friendly',
-  'romantic',
-];
-export const SPECIAL_FEATURES = [
+exports.AMBIANCE = ['casual', 'cozy', 'upscale', 'family-friendly', 'romantic'];
+exports.SPECIAL_FEATURES = [
   'outdoor seating',
   'live music',
   'pet-friendly',
   'happy hour specials',
 ];
 
-export const STATUS = [
+exports.STATUS = [
   'pending',
   'confirmed',
   'preparing',
@@ -32,7 +26,7 @@ export const STATUS = [
   'cancelled',
 ];
 
-export const DIETARY_INFO = [
+exports.DIETARY_INFO = [
   'vegetarian',
   'vegan',
   'gluten-free',
@@ -40,7 +34,7 @@ export const DIETARY_INFO = [
   'halal',
   'kosher',
 ];
-export const AVAILABILITY = [
+exports.AVAILABILITY = [
   'monday',
   'tuesday',
   'wednesday',
@@ -49,7 +43,7 @@ export const AVAILABILITY = [
   'saturday',
   'sunday',
 ];
-export const AVAILABILITY_DEFAULT = [
+exports.AVAILABILITY_DEFAULT = [
   'sunday',
   'monday',
   'tuesday',
