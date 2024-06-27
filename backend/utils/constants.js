@@ -51,3 +51,19 @@ exports.AVAILABILITY_DEFAULT = [
   'thursday',
 ];
 
+exports.SORT_OPTIONS = {
+  newest: '-createdAt',
+  oldest: 'createdAt',
+  'a-z': 'name',
+  'z-a': '-name',
+  'price-asc': 'price',
+  'price-desc': '-price',
+  'rating-asc': 'rating',
+  'rating-desc': '-rating',
+};
+
+exports.DESCENDING_OPTIONS = {
+  Z_TO_A: 'z-a',
+  PRICE_DESC: 'price-desc',
+  RATING_DESC: 'rating-desc',
+};

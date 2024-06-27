@@ -1,8 +1,10 @@
 const Menu = require('../models/menuModel');
 const { detectValidationError } = require('../utils/error');
+const { SORT_OPTIONS, DESCENDING_OPTIONS } = require('../utils/constants');
 
 const DEFAULT_PAGE = 1;
-const MENU_PER_PAGE = 10;
+// const MENU_PER_PAGE = 10;
+const MENU_PER_PAGE = 3;
 
 exports.getAllMenus = async (req, res, next) => {
   try {
@@ -84,23 +86,34 @@ exports.getAdminAllMenus = async (req, res, next) => {
     search,
     dietaryInfo,
     sort,
+    order,
     page,
     limit,
-    projection,
+    fields,
     minPrice,
     maxPrice,
-    rating,
     days,
     startTime,
     endTime,
     minRating,
+    maxRating,
   } = req.query;
 
+
   // Check for valid price range
-  if (minPrice && maxPrice && Number(minPrice) > Number(maxPrice)) {
+  if (minPrice && maxPrice && parseFloat(minPrice) > parseFloat(maxPrice)) {
     return res.status(400).json({
       success: false,
       message: 'Invalid price range: minPrice cannot be greater than maxPrice.',
+    });
+  }
+
+  // Check for valid rating range
+  if (minRating && maxRating && parseFloat(minRating) > parseFloat(maxRating)) {
+    return res.status(400).json({
+      success: false,
+      message:
+        'Invalid rating range: minRating cannot be greater than maxRating.',
     });
   }
 
@@ -110,11 +123,11 @@ exports.getAdminAllMenus = async (req, res, next) => {
   if (search) {
     queryObject.$or = [
       { name: { $regex: search, $options: 'i' } },
-      // { description: { $regex: search, $options: 'i' } },
+      { description: { $regex: search, $options: 'i' } },
     ];
   }
 
-  // Filtering by menu type
+  // Filtering by dietary info
   if (dietaryInfo && dietaryInfo !== 'all') {
     queryObject.dietaryInfo = dietaryInfo;
   }
@@ -123,10 +136,10 @@ exports.getAdminAllMenus = async (req, res, next) => {
   if (minPrice || maxPrice) {
     queryObject.price = {};
     if (minPrice) {
-      queryObject.price.$gte = Number(minPrice);
+      queryObject.price.$gte = parseFloat(minPrice);
     }
     if (maxPrice) {
-      queryObject.price.$lte = Number(maxPrice);
+      queryObject.price.$lte = parseFloat(maxPrice);
     }
   }
 
@@ -141,33 +154,46 @@ exports.getAdminAllMenus = async (req, res, next) => {
     queryObject['availability.endTime'] = { $gte: endTime };
   }
 
-  // Filtering by minimum rating
-  if (minRating) {
-    queryObject.rating = { $gte: Number(minRating) };
+  // Filtering by rating range
+  if (minRating || maxRating) {
+    queryObject.rating = {};
+    if (minRating) {
+      queryObject.rating.$gte = parseFloat(minRating);
+    }
+    if (maxRating) {
+      queryObject.rating.$lte = parseFloat(maxRating);
+    }
   }
-
-  // Sort options
-  const sortOptions = {
-    newest: '-createdAt',
-    oldest: 'createdAt',
-    'a-z': 'name',
-    'z-a': '-name',
-    'price-asc': 'price',
-    'price-desc': '-price',
-    'rating-asc': 'rating',
-    'rating-desc': '-rating',
-  };
 
   // Determine sorting key
   // const sortKey = sortOptions[sort] || sortOptions.newest;
 
   // Determine multiple sorting keys
-  let sortKey = sort
-    ? sort
-        .split(',')
-        .map((s) => sortOptions[s])
-        .join(' ')
-    : sortOptions.newest;
+  // let sortKey = sort
+  //   ? sort
+  //       .split(',')
+  //       .map((s) => sortOptions[s])
+  //       .join(' ')
+  //   : sortOptions.newest;
+
+  // Construct sorting keys
+  let sortKeys = [];
+  if (sort) {
+    const sortFields = sort.split(',');
+    const orders = order ? order.split(',') : [];
+    sortKeys = sortFields.map((field, index) => {
+      let orderPrefix = '';
+      if (
+        orders[index] === DESCENDING_OPTIONS.Z_TO_A ||
+        orders[index] === DESCENDING_OPTIONS.PRICE_DESC ||
+        orders[index] === DESCENDING_OPTIONS.RATING_DESC
+      ) {
+        orderPrefix = '-';
+      }
+      return orderPrefix + field;
+    });
+  }
+  const sortKey = sortKeys.join(' ') || SORT_OPTIONS.newest;
 
   // Pagination setup
   const pageNum = Number(page) || DEFAULT_PAGE;
@@ -175,7 +201,7 @@ exports.getAdminAllMenus = async (req, res, next) => {
   const skip = (pageNum - 1) * pageLimit;
 
   // Define projection (fields to include/exclude)
-  const projectFields = projection ? projection.split(',').join(' ') : '';
+  const projectFields = fields ? fields.split(',').join(' ') : '';
 
   try {
     // Fetching data
@@ -185,21 +211,18 @@ exports.getAdminAllMenus = async (req, res, next) => {
       .limit(pageLimit)
       .select(projectFields);
 
-    const totalMenuItems = await Menu.countDocuments(queryObject);
+    const totalMenus = await Menu.countDocuments(queryObject);
     const totalPages = Math.ceil(totalMenus / pageLimit);
 
     res.status(200).json({
       success: true,
       message: 'Fetched menus successfully!',
-      count: totalMenus,
-      numOfPages,
-      currentPage: pageNum,
       data: { menus },
       pagination: {
+        totalMenus,
         page: pageNum,
         limit: pageLimit,
         totalPages,
-        totalMenuItems,
         links: {
           self: `/api/v1/menus?page=${pageNum}`,
           next:

@@ -48,7 +48,7 @@ const MenuSchema = new Schema(
     },
     rating: {
       type: Number,
-      default: 0,
+      default: 0.0,
     },
     visibility: {
       type: Boolean,
