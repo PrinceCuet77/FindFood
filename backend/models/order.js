@@ -9,7 +9,7 @@ const orderSchema = new Schema(
       ref: 'User',
       required: true,
     },
-    restaurant: {
+    restaurantId: {
       type: Schema.Types.ObjectId,
       ref: 'Restaurant',
       required: true,

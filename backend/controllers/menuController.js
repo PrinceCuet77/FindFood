@@ -99,7 +99,6 @@ exports.getAdminAllMenus = async (req, res, next) => {
     maxRating,
   } = req.query;
 
-
   // Check for valid price range
   if (minPrice && maxPrice && parseFloat(minPrice) > parseFloat(maxPrice)) {
     return res.status(400).json({
@@ -265,20 +264,24 @@ exports.getAdminSingleMenu = async (req, res, next) => {
 exports.createAdminMenu = async (req, res, next) => {
   detectValidationError(req, next);
 
-  const menu = new Menu({
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    restaurant: req.body.restaurant,
-    dietaryInfo: req.body.dietaryInfo,
-    availability: req.body.availability,
-    rating: req.body.rating,
-    visibility: req.body.visibility,
-    reviews: req.body.reviews,
-    images: req.body.images,
-  });
-
   try {
+    const restaurantName = req.body.restaurentName;
+    // const restaurant = await Restaurant.find(restaurantName);
+
+    const menu = new Menu({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      restaurantId: restaurant._id,
+      preparationTime: req.body.preparationTime,
+      ingredients: req.body.ingredients,
+      dietaryInfo: req.body.dietaryInfo,
+      availability: req.body.availability,
+      visibility: req.body.visibility,
+      reviews: req.body.reviews,
+      images: req.body.images,
+    });
+
     const result = await menu.save();
 
     res.status(201).json({

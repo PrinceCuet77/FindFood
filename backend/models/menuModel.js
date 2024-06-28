@@ -18,9 +18,17 @@ const MenuSchema = new Schema(
       type: Number,
       required: true,
     },
-    restaurant: {
+    restaurantId: {
       type: Schema.Types.ObjectId,
       ref: 'Restaurant',
+      required: true,
+    },
+    preparationTime: {
+      type: Number,
+      required: true,
+    },
+    ingredients: {
+      type: [String],
       required: true,
     },
     dietaryInfo: {
@@ -53,7 +61,11 @@ const MenuSchema = new Schema(
     visibility: {
       type: Boolean,
       required: true,
-      default: true,
+    },
+    visitCount: {
+      type: Number,
+      required: true,
+      default: 1,
     },
     reviews: [
       {

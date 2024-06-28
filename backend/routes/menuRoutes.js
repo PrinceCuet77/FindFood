@@ -23,16 +23,28 @@ const validateCreateMenu = [
     .withMessage('Description must be less than 255 characters'),
 
   body('price')
-    .isFloat({ gt: 0 })
+    .isFloat({ gt: 0.0 })
     .withMessage('Price must be a number greater than 0')
     .notEmpty()
     .withMessage('Price is required'),
 
-  body('restaurant')
+  body('restaurantId')
     .isMongoId()
     .withMessage('Please enter a valid restaurant ID')
     .notEmpty()
     .withMessage('Restaurant ID is required'),
+
+  body('preparationTime')
+    .isInt()
+    .withMessage('Preparation time must be a number')
+    .notEmpty()
+    .withMessage('Preparation time is required'),
+
+  body('ingredients')
+    .isArray()
+    .withMessage('Ingredients should be an array')
+    .notEmpty()
+    .withMessage('Ingredients is required'),
 
   body('dietaryInfo')
     .isArray()
@@ -76,7 +88,7 @@ const validateCreateMenu = [
 
   body('rating')
     .optional()
-    .isFloat({ min: 0, max: 5 })
+    .isFloat({ min: 0.0, max: 5.0 })
     .withMessage('Rating must be between 0 and 5'),
 
   body('visibility')
@@ -84,6 +96,13 @@ const validateCreateMenu = [
     .withMessage('Visibility should be a boolean value')
     .notEmpty()
     .withMessage('Visibility is required'),
+
+  body('visitCount')
+    .optional()
+    .isInt({ eq: 1 })
+    .withMessage('VisitCount must be a number equal to 1')
+    .notEmpty()
+    .withMessage('VisitCount is required'),
 
   body('reviews')
     .isArray()
@@ -143,7 +162,7 @@ const validateUpdateSingleMenu = [
     .isFloat({ gt: 0 })
     .withMessage('Price must be a number greater than 0'),
 
-  body('restaurant')
+  body('restaurantId')
     .optional()
     .isMongoId()
     .withMessage('Please enter a valid restaurant ID'),
