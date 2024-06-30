@@ -27,10 +27,6 @@ const MenuSchema = new Schema(
       type: Number,
       required: true,
     },
-    ingredients: {
-      type: [String],
-      required: true,
-    },
     dietaryInfo: {
       type: [String],
       required: true,

@@ -1,52 +1,60 @@
+const path = require('path');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+// const cookieParser = require('cookie-parser');
 
 dotenv.config({ path: '.env.local' });
 
-const connectDatabase = require('./utils/database');
-
 const menuRoutes = require('./routes/menuRoutes');
-// // const authRoutes = require('./routes/auth');
+
+const { corsHandleMiddleware } = require('./middleware/corsHandleMiddleware');
+const {
+  errorHandlerMiddleware,
+} = require('./middleware/errorHandleMiddleware');
 
 const app = express();
 
-app.use(bodyParser.json()); // application/json
-// app.use('/images', express.static(path.join(__dirname, 'images')));
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+  app.use(morgan('dev'));
+}
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'OPTIONS, GET, POST, PUT, PATCH, DELETE'
-  );
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
+app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use(bodyParser.json()); // application/json
+// app.use(cookieParser());
+
+app.use(corsHandleMiddleware);
 
 app.use('/api/v1', menuRoutes);
-// // app.use('/auth', authRoutes);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
+});
+
+app.use('*', (req, res) => {
+  res.status(404).json({ msg: 'not found' });
+});
 
 // Error middleware
 // Will execute only an error is thrown or forwarded with 'next(err)' method
-app.use((error, req, res, next) => {
-  // console.log('An ERROR: ', error);
-  const status = error.statusCode || 500;
-  const message = error.message;
-  const data = error.data;
+app.use(errorHandlerMiddleware);
 
-  res.status(status || 500).json({
-    success: false,
-    message: message,
-    data: data,
+const port = process.env.PORT || 5100;
+const mode = process.env.NODE_ENV;
+mongoose
+  .connect(process.env.DB_LOCAL_URI)
+  .then((con) => {
+    console.log(
+      `MongoDB Database is connected with HOST: ${con.connection.host}`
+    );
+    app.listen(port, () => {
+      console.log(`Server started on port ${port} in ${mode} mode`);
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+    process.exit(1);
   });
-});
-
-// Connecting to database
-connectDatabase();
-
-app.listen(process.env.PORT, () => {
-  console.log(
-    `Server started on port ${process.env.PORT} in ${process.env.NODE_ENV} mode`
-  );
-});

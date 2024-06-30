@@ -1,3 +1,19 @@
+[ ] Next Action Plan
+  [x] Install packages for 'app.js' file
+  [x] Error handling
+  [ ] Authentication & authorization part complete
+
+
+
+
+
+
+
+
+
+
+
+
 GET http://localhost:4000/api/v1/admin/menus?search=Pasta&menuType=vegetarian&sort=price-desc&page=2&limit=5&projection=name,price&minPrice=50&maxPrice=100
 
 GET http://localhost:4000/api/v1/admin/menus?days=monday&startTime=12:00&endTime=18:00
