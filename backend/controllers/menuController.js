@@ -314,7 +314,7 @@ exports.updateAdminSingleMenu = async (req, res, next) => {
     menu.name = req.body.name;
     menu.description = req.body.description;
     menu.price = req.body.price;
-    menu.restaurant = req.body.restaurant;
+    menu.restaurantId = req.body.restaurant;
     menu.dietaryInfo = req.body.dietaryInfo;
     menu.availability = req.body.availability;
     menu.rating = req.body.rating;
