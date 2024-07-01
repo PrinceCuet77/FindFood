@@ -10,6 +10,7 @@ const mongoose = require('mongoose');
 dotenv.config({ path: '.env.local' });
 
 const menuRoutes = require('./routes/menuRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const { corsHandleMiddleware } = require('./middleware/corsHandleMiddleware');
 const {
@@ -29,6 +30,7 @@ app.use(bodyParser.json()); // application/json
 app.use(corsHandleMiddleware);
 
 app.use('/api/v1', menuRoutes);
+app.use('/api/v1', authRoutes);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));

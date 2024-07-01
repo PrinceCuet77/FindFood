@@ -9,23 +9,144 @@ const DEFAULT_PAGE = 1;
 const MENU_PER_PAGE = 3;
 
 exports.getAllMenus = async (req, res, next) => {
+  const {
+    search,
+    dietaryInfo,
+    sort,
+    order,
+    page,
+    limit,
+    fields,
+    minPrice,
+    maxPrice,
+    days,
+    startTime,
+    endTime,
+    minRating,
+    maxRating,
+  } = req.query;
+
   try {
-    const menus = await Menu.find({ visibility: true });
+    // Check for valid price range
+    if (minPrice && maxPrice && parseFloat(minPrice) > parseFloat(maxPrice)) {
+      throw new BadRequestError(
+        'Invalid price range: minPrice cannot be greater than maxPrice.'
+      );
+    }
+
+    // Check for valid rating range
+    if (
+      minRating &&
+      maxRating &&
+      parseFloat(minRating) > parseFloat(maxRating)
+    ) {
+      throw new BadRequestError(
+        'Invalid rating range: minRating cannot be greater than maxRating.'
+      );
+    }
+
+    const queryObject = {};
+
+    // Search filter for menu name or description
+    if (search) {
+      queryObject.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    // Filtering by dietary info
+    if (dietaryInfo && dietaryInfo !== 'all') {
+      queryObject.dietaryInfo = dietaryInfo;
+    }
+
+    // Filtering by price range
+    if (minPrice || maxPrice) {
+      queryObject.price = {};
+      if (minPrice) {
+        queryObject.price.$gte = parseFloat(minPrice);
+      }
+      if (maxPrice) {
+        queryObject.price.$lte = parseFloat(maxPrice);
+      }
+    }
+
+    // Filtering by availability days
+    if (days) {
+      queryObject['availability.days'] = { $in: days.split(',') };
+    }
+
+    // Filtering by availability time range
+    if (startTime && endTime) {
+      queryObject['availability.startTime'] = { $lte: startTime };
+      queryObject['availability.endTime'] = { $gte: endTime };
+    }
+
+    // Filtering by rating range
+    if (minRating || maxRating) {
+      queryObject.rating = {};
+      if (minRating) {
+        queryObject.rating.$gte = parseFloat(minRating);
+      }
+      if (maxRating) {
+        queryObject.rating.$lte = parseFloat(maxRating);
+      }
+    }
+
+    // Construct sorting keys
+    let sortKeys = [];
+    if (sort) {
+      const sortFields = sort.split(',');
+      const orders = order ? order.split(',') : [];
+      sortKeys = sortFields.map((field, index) => {
+        let orderPrefix = '';
+        if (
+          orders[index] === DESCENDING_OPTIONS.Z_TO_A ||
+          orders[index] === DESCENDING_OPTIONS.PRICE_DESC ||
+          orders[index] === DESCENDING_OPTIONS.RATING_DESC
+        ) {
+          orderPrefix = '-';
+        }
+        return orderPrefix + field;
+      });
+    }
+    const sortKey = sortKeys.join(' ') || SORT_OPTIONS.newest;
+
+    // Pagination setup
+    const pageNum = Number(page) || DEFAULT_PAGE;
+    const pageLimit = Number(limit) || MENU_PER_PAGE;
+    const skip = (pageNum - 1) * pageLimit;
+
+    // Define projection (fields to include/exclude)
+    const projectFields = fields ? fields.split(',').join(' ') : '';
+
+    // Fetching only visible menus
+    queryObject.visibility = true;
+
+    // Fetching data
+    const menus = await Menu.find(queryObject)
+      .sort(sortKey)
+      .skip(skip)
+      .limit(pageLimit)
+      .select(projectFields);
+
+    const totalMenus = await Menu.countDocuments(queryObject);
+    const totalPages = Math.ceil(totalMenus / pageLimit);
 
     res.status(StatusCodes.OK).json({
       success: true,
-      message: 'Fetched all menus successfully!',
-      count: menus.length,
+      message: 'Fetched menus successfully!',
       data: { menus },
       pagination: {
-        page: 2,
-        limit: 10,
-        totalPages: 5,
-        totalItems: 50,
+        totalMenus,
+        page: pageNum,
+        limit: pageLimit,
+        totalPages,
         links: {
-          self: '/api/v1/menus?page=1', // TODO: Dynamic page number
-          next: '/api/v1/menus?page=2', // TODO: Dynamic page number
-          prev: null, // TODO: Dynamic page number
+          self: `/api/v1/menus?page=${pageNum}`,
+          next:
+            pageNum < totalPages ? `/api/v1/menus?page=${pageNum + 1}` : null,
+          prev: pageNum > 1 ? `/api/v1/menus?page=${pageNum - 1}` : null,
         },
       },
     });
@@ -228,8 +349,8 @@ exports.getAdminAllMenus = async (req, res, next) => {
         links: {
           self: `/api/v1/menus?page=${pageNum}`,
           next:
-            pageNum !== totalPages ? `/api/v1/menus?page=${pageNum + 1}` : null,
-          prev: pageNum === 1 ? null : `/api/v1/menus?page=${pageNum - 1}`,
+            pageNum < totalPages ? `/api/v1/menus?page=${pageNum + 1}` : null,
+          prev: pageNum > 1 ? `/api/v1/menus?page=${pageNum - 1}` : null,
         },
       },
     });
